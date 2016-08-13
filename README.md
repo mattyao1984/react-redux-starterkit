@@ -1,4 +1,4 @@
-# Telstra Homesite
+# React Redux Starter
 
 > Another React boilerplate for Telstra Homesite with Redux + Webpack + Babel
 
@@ -12,7 +12,7 @@ $ npm start
 You can change server port using following command.
 
 ```sh
-$ PORT=3000 npm start
+$ PORT=9000 npm start
 ```
 
 ## Testing
