@@ -1,6 +1,6 @@
 # React Redux Starter
 
-> Another React boilerplate for Telstra Homesite with Redux + Webpack + Babel
+> Another React boilerplate with Redux + Webpack + Babel
 
 ## Start
 
