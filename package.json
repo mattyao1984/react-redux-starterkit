@@ -1,10 +1,10 @@
 {
-  "name": "b2lunch",
-  "version": "0.1.0",
-  "description": "B2 Lunch App",
+  "name": "react-redux-starterkit",
+  "version": "1.0.0",
+  "description": "React, Redux, ES6, Webpack v3.0.0",
   "main": "lib/index.js",
   "license": "MIT",
-  "repository": "https://bitbucket.org/b2cloud/telstra-homesite-web",
+  "repository": "git@github.com:mattyao1984/react-redux-starterkit.git",
   "scripts": {
     "start": "node server.js",
     "clean": "rimraf lib dist coverage",
@@ -21,7 +21,7 @@
   },
   "author": {
     "name": "Matt Yao",
-    "email": "mattyao@b2cloud.com.au",
+    "email": "mattyao1984@gmail.com",
     "url": "localhost"
   },
   "devEngines": {

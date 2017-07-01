@@ -21,6 +21,11 @@ $ PORT=9000 npm start
 $ npm test
 ```
 
+# 1.0.0 (2017/07/01)
+- Upgraded to React v15.6.1
+- Upgraded to Webpack v3.0.0
+- Upgraded loaders to work with new Webpack
+
 # 0.1.0 (2016/3/15)
 
 #### Features
