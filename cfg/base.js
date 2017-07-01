@@ -3,12 +3,9 @@
 var path = require('path');
 var defaultSettings = require('./defaults');
 var additionalPaths = [];
+process.traceDeprecation = true;
 
 module.exports = {
-  additionalPaths: additionalPaths,
-  port: defaultSettings.port,
-  debug: true,
-  devtool: 'eval',
   output: {
     path: path.join(__dirname, '/../dist/assets'),
     filename: 'bundle.js',
@@ -20,10 +17,11 @@ module.exports = {
     hot: true,
     port: defaultSettings.port,
     publicPath: defaultSettings.publicPath,
-    noInfo: false
+    noInfo: false,
+    compress: true
   },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
     alias: {
       actions: defaultSettings.srcPath + '/actions/',
       components: defaultSettings.srcPath + '/components/',

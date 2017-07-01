@@ -7,34 +7,65 @@ var defaultPort = 3000;
 
 function getDefaultModules() {
   return {
-    preLoaders: [
+    rules: [
       {
+        // pre-loader
         test: /\.(js|jsx)$/,
+        enforce: 'pre',
         include: srcPath,
         loader: 'eslint-loader'
-      }
-    ],
-    loaders: [
+      },
       {
         // images
         test: /\.(png|jpg|gif)$/,
-        loader: 'url-loader?limit=8192'
+        loader: 'url-loader',
+        options: {
+          limit: '8192'
+        }
       },
       {
         test: /\.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
-        loader: 'file-loader?name=fonts/[name].[ext]'
-      },
-      {
-        test: /\.sass/,
-        loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded&indentedSyntax'
+        loader: 'file-loader',
+        options: {
+          name: 'fonts/[name].[ext]'
+        }
       },
       {
         test: /\.scss/,
-        loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded'
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'sass-loader'
+          }
+        ]
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader!postcss-loader'
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: '1'
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: function() {
+                return [
+                  require('precss'),
+                  require('autoprefixer')
+                ]
+              }
+            }
+          }
+        ]
       }
     ]
   };

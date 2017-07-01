@@ -4,17 +4,12 @@ var merge = require('lodash/merge');
 var baseConfig = require('./base');
 var defaultSettings = require('./defaults');
 
-//Postcss plugins
-var autoprefixer = require('autoprefixer');
-var precss       = require('precss');
-var postUrl = require('postcss-url');
-
 var config = merge({
-  entry: [
-    'babel-polyfill/dist/polyfill.min',
-    path.join(__dirname, '../src/index'),
-  ],
-  devtool: 'eval',
+  entry: {
+    app: path.join(__dirname, '../src/index'),
+    vendor: ['react']
+  },
+  devtool: 'cheap-module-source-map',
   cache: false,
   plugins: [
     new webpack.DefinePlugin({
@@ -28,39 +23,23 @@ var config = merge({
       jQuery: "jquery"
     }),
     new webpack.optimize.UglifyJsPlugin({
-      compress: { warnings: false },
-      comments: false,
-      sourceMap: false,
-      minimize: true
+      compress: { warnings: true },
+      sourceMap: true
     }),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'vendor.js'
+    })
   ],
-  module: defaultSettings.getDefaultModules(),
-  postcss: function (webpack) {
-    return [
-      require('postcss-import')({
-        addDependencyTo: webpack
-      }),
-      autoprefixer,
-      precss,
-      postUrl
-    ];
-  },
-  resolve: {
-    alias: {
-      'react-router': defaultSettings.modulePath + '/react-router/umd/ReactRouter.min.js',
-      'immutable': defaultSettings.modulePath + '/immutable/dist/immutable.min.js'
-    }
-  }
+  module: defaultSettings.getDefaultModules()
 }, baseConfig);
 
-config.module.loaders.push({
+config.module.rules.push({
   test: /\.(js|jsx)$/,
-  loader: 'babel',
+  use: ['babel-loader'],
   include: path.join(__dirname, '/../src'),
   exclude: /node_modules/
 });

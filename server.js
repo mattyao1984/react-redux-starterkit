@@ -10,7 +10,7 @@ require('./cfg/NodeJS/express')(app);
 require('./cfg/NodeJS/routes')(app);
 
 app.get('*', function(req, res){
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, '/src/index.html'));
 });
 
 var ip = (process.env.REACT_WEBPACK_ENV == 'dev') ? 'localhost' : 'localhost';

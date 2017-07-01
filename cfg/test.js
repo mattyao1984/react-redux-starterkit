@@ -1,34 +1,47 @@
 var path = require('path');
-var srcPath = path.join(__dirname, '/../src/');
+var webpack = require('webpack');
+var merge = require('lodash/merge');
+var baseConfig = require('./base');
+var defaultSettings = require('./defaults');
 
-module.exports = {
-  devtool: 'eval',
-  module: {
-    loaders: [
-      {
-        test: /\.(png|jpg|gif|woff|woff2|css|sass|scss|less|styl)$/,
-        loader: 'null-loader'
-      },
-      {
-        test: /\.(js|jsx)$/,
-        loader: 'babel-loader',
-        include: [
-          path.join(__dirname, '/../src'),
-          path.join(__dirname, '/../test')
-        ]
-      }
-    ]
+var config = merge({
+  entry: {
+    app: path.join(__dirname, '../src/index'),
+    vendor: ['react']
   },
-  resolve: {
-    extensions: ['', '.js', '.jsx'],
-    alias: {
-      actions: srcPath + 'actions/',
-      helpers: path.join(__dirname, '/../test/helpers'),
-      components: srcPath + 'components/',
-      sources: srcPath + 'sources/',
-      stores: srcPath + 'stores/',
-      styles: srcPath + 'styles/',
-      config: srcPath + 'config/' + process.env.REACT_WEBPACK_ENV
-    }
-  }
-};
+  devtool: 'cheap-module-source-map',
+  cache: false,
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'BROWSER': JSON.stringify(true),
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery"
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: { warnings: true },
+      sourceMap: true
+    }),
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'vendor.js'
+    })
+  ],
+  module: defaultSettings.getDefaultModules()
+}, baseConfig);
+
+config.module.rules.push({
+  test: /\.(js|jsx)$/,
+  use: ['babel-loader'],
+  include: path.join(__dirname, '/../src'),
+  exclude: /node_modules/
+});
+
+module.exports = config;

@@ -3,7 +3,11 @@
 var path = require('path');
 var settings = {
   env: process.env.NODE_ENV,
-  root: path.normalize(__dirname),
+  modules: [
+    path.normalize(__dirname),
+    'node_modules'
+  ],
+  // root: path.normalize(__dirname),
   port: process.env.PORT || 9000
 };
 
