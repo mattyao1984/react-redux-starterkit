@@ -1,14 +1,11 @@
 import './_homePage.css';
 
-import React,{PropTypes} from 'react';
+import React from 'react';
+import createReactClass from 'create-react-class';
 import {connect} from 'react-redux';
 import {browserHistory, Link} from 'react-router';
 
-class HomePage extends React.Component{
-  constructor(props) {
-    super(props);
-  }
-
+const HomePage = createReactClass({
   render() {
     if (!this.props) {
       return null;
@@ -20,6 +17,6 @@ class HomePage extends React.Component{
       </div>
     );
   }
-}
+});
 
 export default HomePage;

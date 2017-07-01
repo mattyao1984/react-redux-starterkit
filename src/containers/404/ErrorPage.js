@@ -1,14 +1,11 @@
 import './_errorPage.css';
 
-import React,{PropTypes} from 'react';
+import React from 'react';
+import createReactClass from 'create-react-class';
 import {connect} from 'react-redux';
 import {browserHistory, Link} from 'react-router';
 
-class ErrorPage extends React.Component{
-  constructor(props) {
-    super(props);
-  }
-
+const ErrorPage =  createReactClass({
   render() {
     if (!this.props) {
       return null;
@@ -20,6 +17,6 @@ class ErrorPage extends React.Component{
       </div>
     );
   }
-}
+});
 
 export default ErrorPage;

@@ -1,11 +1,19 @@
 if (process.env.BROWSER) {
   require('./styles/_app.scss');
 }
-import React, {PropTypes} from 'react';
+import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-class App extends React.Component {
+const App = createReactClass ({
+  propTypes: {
+    actions: PropTypes.object.isRequired,
+    children: PropTypes.any.isRequired,
+    location: PropTypes.any.isRequired
+  },
+
   render() {
     if (!this.props.children) {
       return null;
@@ -17,13 +25,7 @@ class App extends React.Component {
       </div>
     );
   }
-}
-
-App.propTypes = {
-  actions: PropTypes.object.isRequired,
-  children: PropTypes.any.isRequired,
-  location: PropTypes.any.isRequired
-};
+});
 
 /**
  * Return the app properties
