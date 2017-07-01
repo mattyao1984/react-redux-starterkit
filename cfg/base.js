@@ -3,7 +3,9 @@
 var path = require('path');
 var defaultSettings = require('./defaults');
 var additionalPaths = [];
+
 process.traceDeprecation = true;
+// process.noDeprecation = true
 
 module.exports = {
   output: {

@@ -23,7 +23,7 @@ var config = merge({
       jQuery: "jquery"
     }),
     new webpack.optimize.UglifyJsPlugin({
-      compress: { warnings: true },
+      compress: { warnings: false },
       sourceMap: true
     }),
     new webpack.optimize.AggressiveMergingPlugin(),
@@ -32,7 +32,8 @@ var config = merge({
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       filename: 'vendor.js'
-    })
+    }),
+    new webpack.optimize.ModuleConcatenationPlugin()
   ],
   module: defaultSettings.getDefaultModules()
 }, baseConfig);
