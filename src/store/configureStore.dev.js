@@ -1,7 +1,8 @@
 import {createStore, applyMiddleware, compose} from 'redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
-import {browserHistory} from 'react-router';
+// import {browserHistory} from 'react-router';
+import createHistory from 'history/createBrowserHistory';
 import {routerMiddleware} from 'react-router-redux';
 import {persistState} from 'redux-devtools';
 import rootReducer from '../reducers';
@@ -10,8 +11,8 @@ const logger = createLogger({
   level: 'info',
   collapsed: true
 });
-
-const router = routerMiddleware(browserHistory);
+const history = createHistory();
+const router = routerMiddleware(history);
 
 /**
  * Creates a preconfigured store.

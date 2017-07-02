@@ -1,8 +1,12 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {Provider} from 'react-redux';
-import {Router} from 'react-router';
-import routes from '../routes';
+import {ConnectedRouter} from 'react-router-redux';
+import {Route} from 'react-router';
+
+// Routes
+import Home from './HomePage/HomePage';
+import About from './AboutPage/AboutPage';
 
 const Root = createReactClass({
   render() {
@@ -14,7 +18,12 @@ const Root = createReactClass({
 
     return (
       <Provider store={store}>
-        <Router history={history} routes={routes}/>
+        <ConnectedRouter history={history}>
+        <div>
+          <Route exact path="/" component={Home}/>
+          <Route path="/about" component={About}/>
+        </div>
+        </ConnectedRouter>
       </Provider>
     );
   }

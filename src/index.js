@@ -1,12 +1,11 @@
 import React from 'react';
 import {render} from 'react-dom';
 import Root from './containers/Root';
-import {browserHistory} from 'react-router';
-import {syncHistoryWithStore} from 'react-router-redux';
+import createHistory from 'history/createBrowserHistory';
 import configureStore from './store/configureStore';
 
 const store = configureStore();
-const history = syncHistoryWithStore(browserHistory, store);
+const history = createHistory();
 
 render(
   <Root store={store} history={history}/>,

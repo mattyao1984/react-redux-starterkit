@@ -1,27 +1,19 @@
-if (process.env.BROWSER) {
-  require('./styles/_app.scss');
-}
+import './_aboutPage.css';
+
 import React from 'react';
 import createReactClass from 'create-react-class';
-import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-const App = createReactClass ({
-  propTypes: {
-    actions: PropTypes.object.isRequired,
-    children: PropTypes.any.isRequired,
-    location: PropTypes.any.isRequired
-  },
-
+const AboutPage = createReactClass({
   render() {
-    if (!this.props.children) {
+    if (!this.props) {
       return null;
     }
 
     return (
-      <div>
-        {this.props.children}
+      <div className="page-wrapper home-page">
+        <h1>About</h1>
       </div>
     );
   }
@@ -49,4 +41,4 @@ function mapDispatchToProps(dispatch) {
   return actionMap;
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(AboutPage);
